@@ -804,16 +804,31 @@ resize();window.addEventListener('resize',resize);function draw() {
     ;if(!reduced)requestAnimationFrame(draw)
 }
 draw(); // Visitor counter via third-party API. This counts page loads, not unique people. // Counter may be unavailable if the service is down or blocked. 
-   const visits=document.getElementById('visits');const counterUrl='https://api.counterapi.dev/v1/tyavailable-web-profile/visits/up';fetch(counterUrl).then(r=> {
-    if(!r.ok)throw Error('counter unavailable');return r.json()
-})
-.then(data=> {
-    visits.textContent=typeof data.count==='number'?data.count.toLocaleString('id-ID'):'—'
-})
-.catch(()=> {
-    visits.textContent='—'
-})
-;  // V3 welcome page; language selection is respected on return visits. 
+   // Visitor Counter
+const visits = document.getElementById("visits");
+
+async function updateVisits() {
+    try {
+        const response = await fetch(
+            "https://api.counterapi.dev/v1/tyavailable-web-profile/visits/up",
+            { cache: "no-store" }
+        );
+
+        if (!response.ok) {
+            throw new Error("Counter API error: " + response.status);
+        }
+
+        const data = await response.json();
+
+        visits.textContent = data.count.toLocaleString("id-ID");
+
+    } catch (error) {
+        console.error("Visitor counter gagal:", error);
+        visits.textContent = "—";
+    }
+}
+
+updateVisits();  // V3 welcome page; language selection is respected on return visits. 
    const portal=document.getElementById('welcomePortal'); const enterWebsite=document.getElementById('enterWebsite'); function portalLanguage() {
     const isID=document.documentElement.lang==='id';  document.getElementById('portalSubtitle').textContent=isID?'Sudut kecil di internet, dibuat dengan kreativitas dan rasa ingin tahu.':'A little corner of the internet, made with creativity and curiosity.';  enterWebsite.textContent=isID?'Masuk Website →':'Enter Website →';
 }
