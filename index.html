@@ -755,7 +755,8 @@ syncTheme();themeBtn.addEventListener('click',()=> {
     catch(e) {
     }
 })
-; // Language const dict= {
+; // Language 
+   const dict= {
     en: {
         navHome:'Home',navAbout:'About',navSkills:'Skills',navContact:'Contact',badge:'✨ Thanks for coming.',greeting:"Hi, I'm",heroDesc:'A student, technology enthusiast, and someone who loves learning new things. Welcome to my personal space on the internet.',explore:'Explore My Profile →',aboutTitle:'About <span>Me</span>',aboutDesc:'Get to know me better.',whoTitle:'Who Am I?',whoDesc:"Hello! I'm a student who enjoys exploring technology, creativity, and new experiences.",interestsTitle:'My Interests',interestsDesc:'I enjoy coding, web development, gaming, and discovering interesting technologies.',goalsTitle:'My Goals',goalsDesc:'My goal is to keep improving, learn valuable skills, and create something meaningful.',skillsTitle:'My <span>Skills</span>',skillsDesc:"Things I'm currently learning.",contactTitle:'Contact <span>Me</span>',contactDesc:"Let's connect!",friends:"Let's Be Friends!",contactText:'Feel free to connect with me through my social media.',githubBtn:'Visit My GitHub →',visitsLabel:'Total visits:'
     },
@@ -775,7 +776,8 @@ let savedLang='en';try {
 }
 catch(e) {
 }
-setLanguage(savedLang==='id'?'id':'en');language.addEventListener('change',e=>setLanguage(e.target.value)); // Mouse cursor (desktop only) if(window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+setLanguage(savedLang==='id'?'id':'en');language.addEventListener('change',e=>setLanguage(e.target.value)); // Mouse cursor (desktop only) 
+   if(window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
     const cursor=document.getElementById('cursor');window.addEventListener('pointermove',e=> {
         cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px'
     },
@@ -801,7 +803,8 @@ resize();window.addEventListener('resize',resize);function draw() {
     })
     ;if(!reduced)requestAnimationFrame(draw)
 }
-draw(); // Visitor counter via third-party API. This counts page loads, not unique people. // Counter may be unavailable if the service is down or blocked. const visits=document.getElementById('visits');const counterUrl='https://api.counterapi.dev/v1/tyavailable-web-profile/visits/up';fetch(counterUrl).then(r=> {
+draw(); // Visitor counter via third-party API. This counts page loads, not unique people. // Counter may be unavailable if the service is down or blocked. 
+   const visits=document.getElementById('visits');const counterUrl='https://api.counterapi.dev/v1/tyavailable-web-profile/visits/up';fetch(counterUrl).then(r=> {
     if(!r.ok)throw Error('counter unavailable');return r.json()
 })
 .then(data=> {
@@ -810,7 +813,8 @@ draw(); // Visitor counter via third-party API. This counts page loads, not uniq
 .catch(()=> {
     visits.textContent='—'
 })
-;  // V3 welcome page; language selection is respected on return visits. const portal=document.getElementById('welcomePortal'); const enterWebsite=document.getElementById('enterWebsite'); function portalLanguage() {
+;  // V3 welcome page; language selection is respected on return visits. 
+   const portal=document.getElementById('welcomePortal'); const enterWebsite=document.getElementById('enterWebsite'); function portalLanguage() {
     const isID=document.documentElement.lang==='id';  document.getElementById('portalSubtitle').textContent=isID?'Sudut kecil di internet, dibuat dengan kreativitas dan rasa ingin tahu.':'A little corner of the internet, made with creativity and curiosity.';  enterWebsite.textContent=isID?'Masuk Website →':'Enter Website →';
 }
 portalLanguage(); language.addEventListener('change',portalLanguage); function closePortal() {
