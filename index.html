@@ -1,512 +1,792 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Personal Profile</title>
-
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
-
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="#101018" name="theme-color"/>
+  <title>
+   My Personal Profile
+  </title>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+  <style>
+   :root {
+    --bg:#101018;
+    --fg:#fff;
+    --muted:#aaa;
+    --purple:#a879ff;
+    --card:rgba(38,35,55,.48);
+    --border:rgba(185,150,255,.18);
+    --nav:rgba(20,20,30,.76);
+    --track:#30303d;
+    --shadow:rgba(121,56,255,.2)
+}
+body.light {
+    --bg:#f3f1f9;
+    --fg:#211b30;
+    --muted:#625e70;
+    --purple:#6d30cc;
+    --card:rgba(255,255,255,.58);
+    --border:rgba(100,65,155,.23);
+    --nav:rgba(246,244,252,.8);
+    --track:#ddd5e9;
+    --shadow:rgba(121,56,255,.13)
+}
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    margin:0;
+    padding:0;
+    box-sizing:border-box
 }
-
 html {
-    scroll-behavior: smooth;
+    scroll-behavior:smooth
 }
-
 body {
-    font-family: 'Poppins', sans-serif;
-    background: #101018;
-    color: white;
-    overflow-x: hidden;
+    font-family:Poppins,sans-serif;
+    background:var(--bg);
+    color:var(--fg);
+    overflow-x:hidden;
+    transition:background .35s,color .35s
 }
-
-/* BACKGROUND */
-body::before {
-    content: "";
-    position: fixed;
-    width: 450px;
-    height: 450px;
-    background: #7938ff;
-    filter: blur(200px);
-    opacity: .25;
-    top: -150px;
-    right: -150px;
-    z-index: -1;
+#particles {
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    z-index:0;
+    pointer-events:none
 }
-
-/* NAVBAR */
+.glow {
+    position:fixed;
+    z-index:0;
+    width:380px;
+    height:380px;
+    border-radius:50%;
+    background:#7938ff;
+    filter:blur(145px);
+    opacity:.15;
+    pointer-events:none
+}
+.glow.a {
+    top:-170px;
+    right:-130px
+}
+.glow.b {
+    bottom:-180px;
+    left:-160px
+}
+nav,.hero,section,footer {
+    position:relative;
+    z-index:1
+}
 nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 8%;
-    background: rgba(20,20,30,.8);
-    backdrop-filter: blur(15px);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    border-bottom: 1px solid #ffffff15;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    padding:17px 7%;
+    background:var(--nav);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    position:sticky;
+    top:0;
+    z-index:100;
+    border-bottom:1px solid var(--border);
+    flex-wrap:wrap
 }
-
 .logo {
-    font-size: 22px;
-    font-weight: 800;
-    color: #a879ff;
+    font-size:21px;
+    font-weight:800;
+    color:var(--purple)
 }
-
-nav a {
-    color: #ddd;
-    text-decoration: none;
-    margin-left: 20px;
-    font-size: 13px;
-    transition: .3s;
+.nav-right {
+    display:flex;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap
 }
-
-nav a:hover {
-    color: #a879ff;
+.links {
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap
 }
-
-/* HERO */
+.links a {
+    color:var(--fg);
+    text-decoration:none;
+    font-size:12px;
+    transition:color .2s
+}
+.links a:hover {
+    color:var(--purple)
+}
+.controls {
+    display:flex;
+    gap:7px
+}
+button,select {
+    font:inherit
+}
+.control {
+    border:1px solid var(--border);
+    background:var(--card);
+    color:var(--fg);
+    padding:7px 10px;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:12px
+}
+select option {
+    background:#292238;
+    color:white
+}
 .hero {
-    min-height: 85vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 60px 20px;
+    min-height:85vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:60px 20px
 }
-
 .profile-img {
-    width: 145px;
-    height: 145px;
-    border-radius: 50%;
-    border: 4px solid #985cff;
-    padding: 5px;
-    object-fit: cover;
-    box-shadow: 0 0 35px #843cff70;
-    margin-bottom: 25px;
+    width:145px;
+    height:145px;
+    border-radius:50%;
+    border:4px solid #985cff;
+    padding:5px;
+    object-fit:cover;
+    box-shadow:0 0 35px #843cff70;
+    margin-bottom:25px
 }
-
 .hero h1 {
-    font-size: clamp(30px, 6vw, 52px);
-    margin-bottom: 12px;
+    font-size:clamp(30px,6vw,52px);
+    margin-bottom:12px
 }
-
 .hero h1 span {
-    background: linear-gradient(90deg,#a879ff,#e0caff);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
+    background:linear-gradient(90deg,#a879ff,#e0caff);
+    background-clip:text;
+    -webkit-background-clip:text;
+    color:transparent
 }
-
 .hero p {
-    color: #aaa;
-    max-width: 500px;
-    margin: auto;
-    line-height: 1.8;
-    font-size: 14px;
+    color:var(--muted);
+    max-width:500px;
+    margin:auto;
+    line-height:1.8;
+    font-size:14px
 }
-
 .badge {
-    display: inline-block;
-    padding: 8px 18px;
-    background: #843cff20;
-    border: 1px solid #843cff60;
-    color: #c7a6ff;
-    border-radius: 30px;
-    font-size: 12px;
-    margin-bottom: 20px;
+    display:inline-block;
+    padding:8px 18px;
+    background:#843cff20;
+    border:1px solid #843cff60;
+    color:var(--purple);
+    border-radius:30px;
+    font-size:12px;
+    margin-bottom:20px
 }
-
 .btn {
-    display: inline-block;
-    margin-top: 28px;
-    padding: 13px 30px;
-    border-radius: 30px;
-    background: linear-gradient(135deg,#7835ff,#a46aff);
-    color: white;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 13px;
-    box-shadow: 0 8px 25px #7938ff40;
-    transition: .3s;
+    display:inline-block;
+    margin-top:28px;
+    padding:13px 30px;
+    border-radius:30px;
+    background:linear-gradient(135deg,#7835ff,#a46aff);
+    color:white;
+    text-decoration:none;
+    font-weight:600;
+    font-size:13px;
+    box-shadow:0 8px 25px #7938ff40;
+    transition:.3s
 }
-
 .btn:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 35px #7938ff80;
+    transform:translateY(-5px);
+    box-shadow:0 12px 35px #7938ff80
 }
-
-/* SECTION */
 section {
-    padding: 85px 8%;
+    padding:85px 8%;
+    scroll-margin-top:100px
 }
-
 .section-title {
-    text-align: center;
-    font-size: 30px;
-    margin-bottom: 12px;
+    text-align:center;
+    font-size:30px;
+    margin-bottom:12px
 }
-
 .section-title span {
-    color: #a879ff;
+    color:var(--purple)
 }
-
 .section-desc {
-    text-align: center;
-    color: #999;
-    font-size: 13px;
-    margin-bottom: 45px;
+    text-align:center;
+    color:var(--muted);
+    font-size:13px;
+    margin-bottom:45px
 }
-
-/* CARDS */
 .cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(230px,1fr));
-    gap: 20px;
-    max-width: 1000px;
-    margin: auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:20px;
+    max-width:1000px;
+    margin:auto
 }
-
+.card,.contact-box {
+    background:var(--card);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    border:1px solid var(--border);
+    box-shadow:0 8px 30px var(--shadow);
+    border-radius:18px
+}
 .card {
-    background: linear-gradient(145deg,#222230,#171720);
-    padding: 30px;
-    border-radius: 18px;
-    border: 1px solid #ffffff12;
-    transition: .3s;
+    padding:30px;
+    transition:transform .3s,border-color .3s,box-shadow .3s
 }
-
 .card:hover {
-    transform: translateY(-8px);
-    border-color: #985cff;
-    box-shadow: 0 10px 30px #7938ff20;
+    transform:translateY(-8px);
+    border-color:#985cff;
+    box-shadow:0 10px 30px #7938ff35
 }
-
 .card .icon {
-    font-size: 32px;
-    margin-bottom: 15px;
+    font-size:32px;
+    margin-bottom:15px
 }
-
 .card h3 {
-    color: #eee;
-    margin-bottom: 12px;
-    font-size: 17px;
+    color:var(--fg);
+    margin-bottom:12px;
+    font-size:17px
 }
-
 .card p {
-    color: #aaa;
-    font-size: 13px;
-    line-height: 1.8;
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.8
 }
-
-/* SKILLS */
 .skill {
-    max-width: 650px;
-    margin: 20px auto;
+    max-width:650px;
+    margin:20px auto
 }
-
 .skill-info {
-    display: flex;
-    justify-content: space-between;
-    font-size: 13px;
-    margin-bottom: 10px;
+    display:flex;
+    justify-content:space-between;
+    font-size:13px;
+    margin-bottom:10px
 }
-
 .progress {
-    height: 9px;
-    background: #30303d;
-    border-radius: 20px;
-    overflow: hidden;
+    height:9px;
+    background:var(--track);
+    border-radius:20px;
+    overflow:hidden
 }
-
 .progress-bar {
-    height: 100%;
-    background: linear-gradient(90deg,#7434ff,#bc91ff);
-    border-radius: 20px;
-    width: 0;
-    transition: width 1.5s ease;
+    height:100%;
+    background:linear-gradient(90deg,#7434ff,#bc91ff);
+    border-radius:20px;
+    width:0;
+    transition:width 1.5s ease
 }
-
-/* CONTACT */
 .contact-box {
-    max-width: 600px;
-    margin: auto;
-    text-align: center;
-    background: linear-gradient(145deg,#252037,#171720);
-    padding: 45px 25px;
-    border-radius: 20px;
-    border: 1px solid #843cff50;
+    max-width:600px;
+    margin:auto;
+    text-align:center;
+    padding:45px 25px
 }
-
 .contact-box p {
-    color: #aaa;
-    font-size: 13px;
-    line-height: 1.8;
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.8
 }
-
-/* FOOTER */
+.visitors {
+    text-align:center;
+    color:var(--muted);
+    font-size:13px;
+    margin-top:25px
+}
+.visitors strong {
+    color:var(--purple)
+}
 footer {
-    text-align: center;
-    padding: 25px;
-    color: #777;
-    font-size: 12px;
-    border-top: 1px solid #ffffff15;
+    text-align:center;
+    padding:25px;
+    color:var(--muted);
+    font-size:12px;
+    border-top:1px solid var(--border)
 }
-
-/* ANIMATION */
 .reveal {
-    opacity: 0;
-    transform: translateY(35px);
-    transition: 0.8s ease;
+    opacity:0;
+    transform:translateY(35px);
+    transition:opacity .8s ease,transform .8s ease
 }
-
 .reveal.active {
-    opacity: 1;
-    transform: translateY(0);
+    opacity:1;
+    transform:translateY(0)
 }
-
-/* MOBILE */
-@media(max-width:600px) {
+.cursor-glow {
+    position:fixed;
+    left:0;
+    top:0;
+    width:26px;
+    height:26px;
+    border-radius:50%;
+    background:rgba(168,121,255,.3);
+    box-shadow:0 0 26px rgba(152,92,255,.8);
+    pointer-events:none;
+    z-index:999;
+    transform:translate(-50%,-50%);
+    display:none
+}
+@media(hover:hover) and (pointer:fine) {
+    .cursor-glow {
+        display:block
+    }
+}
+@media(max-width:650px) {
     nav {
-        padding: 18px 5%;
+        padding:14px 5%;
+        justify-content:center
     }
-
-    nav a {
-        margin-left: 10px;
-        font-size: 11px;
-    }
-
     .logo {
-        font-size: 18px;
+        width:100%;
+        text-align:center
     }
-
+    .nav-right {
+        justify-content:center
+    }
+    .links {
+        gap:12px
+    }
     section {
-        padding: 65px 6%;
+        padding:65px 6%
     }
-
     .hero {
-        min-height: 80vh;
+        min-height:80vh
     }
 }
-
 @media(prefers-reduced-motion:reduce) {
-    *,
-    *::before,
-    *::after {
-        scroll-behavior: auto !important;
-        transition-duration: 0.01ms !important;
+    *,*::before,*::after {
+        scroll-behavior:auto!important;
+        transition-duration:.01ms!important;
+        animation-duration:.01ms!important
+    }
+    .reveal {
+        opacity:1;
+        transform:none
     }
 }
-</style>
-</head>
-
-<body>
-
-<!-- NAVBAR -->
-<nav>
-    <div class="logo">MyProfile.</div>
-    <div>
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#contact">Contact</a>
+/* V3 welcome portal */
+body.portal-open {
+    overflow:hidden
+}
+#welcomePortal {
+    position:fixed;
+    inset:0;
+    z-index:10000;
+    display:grid;
+    place-items:center;
+    padding:24px;
+    background:radial-gradient(circle at 50% 38%,#39205f 0%,#171323 48%,#0b0b12 100%);
+    color:#fff;
+    opacity:1;
+    visibility:visible;
+    transition:opacity .85s ease,visibility .85s ease
+}
+#welcomePortal.exit {
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none
+}
+.portal-orb {
+    position:absolute;
+    width:min(68vw,330px);
+    aspect-ratio:1;
+    border:1px solid #a879ff66;
+    border-radius:50%;
+    box-shadow:0 0 90px #7835ff44,inset 0 0 75px #7835ff22;
+    animation:portalPulse 4s ease-in-out infinite;
+    pointer-events:none
+}
+.portal-content {
+    position:relative;
+    text-align:center;
+    max-width:600px;
+    animation:portalRise .9s ease both
+}
+.portal-kicker {
+    font-size:12px;
+    letter-spacing:.34em;
+    color:#cbb0ff;
+    text-transform:uppercase;
+    margin-bottom:22px
+}
+.portal-title {
+    font-size:clamp(36px,9vw,76px);
+    line-height:1.14;
+    font-weight:800;
+    letter-spacing:-.045em;
+    text-shadow:0 0 45px #9b64ff77
+}
+.portal-title span {
+    background:linear-gradient(110deg,#fff,#b58aff,#e9dcff);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent
+}
+.portal-sub {
+    margin:22px auto 0;
+    max-width:420px;
+    color:#c7bfd4;
+    font-size:14px;
+    line-height:1.8
+}
+.portal-enter {
+    margin-top:34px;
+    border:1px solid #c8a5ff88;
+    border-radius:99px;
+    padding:15px 33px;
+    background:linear-gradient(120deg,#6630dc,#a268ff);
+    color:#fff;
+    font:600 14px Poppins,sans-serif;
+    cursor:pointer;
+    box-shadow:0 10px 36px #7b3aff55;
+    transition:transform .2s,box-shadow .2s
+}
+.portal-enter:hover,.portal-enter:focus-visible {
+    transform:translateY(-3px);
+    box-shadow:0 14px 45px #9b64ff88
+}
+.portal-foot {
+    position:absolute;
+    bottom:28px;
+    left:0;
+    right:0;
+    text-align:center;
+    font-size:11px;
+    letter-spacing:.2em;
+    color:#a89db8
+}
+@keyframes portalPulse {
+    50% {
+        transform:scale(1.12);
+        opacity:.6
+    }
+}
+@keyframes portalRise {
+    from {
+        opacity:0;
+        transform:translateY(25px)
+    }
+    to {
+        opacity:1;
+        transform:translateY(0)
+    }
+}
+@media(prefers-reduced-motion:reduce) {
+    .portal-orb,.portal-content {
+        animation:none
+    }
+}
+  </style>
+ </head>
+ <body class="portal-open">
+  <div aria-labelledby="portalHeading" aria-modal="true" id="welcomePortal" role="dialog">
+   <div aria-hidden="true" class="portal-orb">
+   </div>
+   <div class="portal-content">
+    <div class="portal-kicker">
+     HEATCLIFF • PERSONAL SPACE
     </div>
-</nav>
-
-<!-- HERO -->
-<div class="hero" id="home">
-    <div>
-        <img
-  class="profile-img"
-  src="4f866bd5699b7aecd73adac853636027.jpg"
-  alt="Foto profil"
->
-
-        <br>
-
-        <div class="badge">
-            ✨ Thanks for Cooming.
-        </div>
-
-        <h1>Hi, i'm <span></span>Unknown User</h1>
-
-        <p>
-            A student, technology enthusiast, and someone
-            who loves learning new things.
-            Welcome to my personal space on the internet.
-        </p>
-
-        <a href="#about" class="btn">
-            Explore My Profile →
-        </a>
-    </div>
-</div>
-
-<!-- ABOUT -->
-<section id="about">
-
-    <h2 class="section-title reveal">
-        About <span>Me</span>
-    </h2>
-
-    <p class="section-desc reveal">
-        Get to know me better.
+    <h1 class="portal-title" id="portalHeading">
+     Welcome to
+     <br/>
+     <span>
+      My World.
+     </span>
+    </h1>
+    <p class="portal-sub" id="portalSubtitle">
+     A little corner of the internet, made with creativity and curiosity.
     </p>
-
-    <div class="cards">
-
-        <div class="card reveal">
-            <div class="icon">👤</div>
-            <h3>Who Am I?</h3>
-            <p>
-                Hello! I'm a student who enjoys
-                exploring technology, creativity,
-                and new experiences.
-            </p>
-        </div>
-
-        <div class="card reveal">
-            <div class="icon">💻</div>
-            <h3>My Interests</h3>
-            <p>
-                I enjoy coding, web development,
-                gaming, and discovering
-                interesting technologies.
-            </p>
-        </div>
-
-        <div class="card reveal">
-            <div class="icon">🚀</div>
-            <h3>My Goals</h3>
-            <p>
-                My goal is to keep improving,
-                learn valuable skills,
-                and create something meaningful.
-            </p>
-        </div>
-
+    <button class="portal-enter" id="enterWebsite" type="button">
+     Enter Website →
+    </button>
+   </div>
+   <div class="portal-foot">
+    MADE BY HEATCLIFF EL UNKNOWN
+   </div>
+  </div>
+  <canvas aria-hidden="true" id="particles">
+  </canvas>
+  <div class="glow a">
+  </div>
+  <div class="glow b">
+  </div>
+  <div aria-hidden="true" class="cursor-glow" id="cursor">
+  </div>
+  <nav>
+   <div class="logo">
+    MyProfile.
+   </div>
+   <div class="nav-right">
+    <div class="links">
+     <a data-i18n="navHome" href="#home">
+      Home
+     </a>
+     <a data-i18n="navAbout" href="#about">
+      About
+     </a>
+     <a data-i18n="navSkills" href="#skills">
+      Skills
+     </a>
+     <a data-i18n="navContact" href="#contact">
+      Contact
+     </a>
     </div>
-</section>
-
-<!-- SKILLS -->
-<section id="skills">
-
-    <h2 class="section-title reveal">
-        My <span>Skills</span>
-    </h2>
-
-    <p class="section-desc reveal">
-        Things I'm currently learning.
+    <div class="controls">
+     <button aria-label="Change theme" class="control" id="themeBtn" type="button">
+      ☀️
+     </button>
+     <select aria-label="Language" class="control" id="language">
+      <option value="en">
+       EN
+      </option>
+      <option value="id">
+       ID
+      </option>
+     </select>
+    </div>
+   </div>
+  </nav>
+  <div class="hero" id="home">
+   <div>
+    <img alt="Foto profil" class="profile-img" src="4f866bd5699b7aecd73adac853636027.jpg"/>
+    <br/>
+    <div class="badge" data-i18n="badge">
+     ✨ Thanks for coming.
+    </div>
+    <h1>
+     <span data-i18n="greeting">
+      Hi, I'm
+     </span>
+     Unknown User
+    </h1>
+    <p data-i18n="heroDesc">
+     A student, technology enthusiast, and someone who loves learning new things. Welcome to my personal space on the internet.
     </p>
-
-    <div class="skill reveal">
-        <div class="skill-info">
-            <span>HTML</span>
-            <span>80%</span>
-        </div>
-        <div class="progress">
-            <div class="progress-bar" data-width="80%"></div>
-        </div>
+    <a class="btn" data-i18n="explore" href="#about">
+     Explore My Profile →
+    </a>
+   </div>
+  </div>
+  <section id="about">
+   <h2 class="section-title reveal" data-i18n-html="aboutTitle">
+    About
+    <span>
+     Me
+    </span>
+   </h2>
+   <p class="section-desc reveal" data-i18n="aboutDesc">
+    Get to know me better.
+   </p>
+   <div class="cards">
+    <div class="card reveal">
+     <div class="icon">
+      👤
+     </div>
+     <h3 data-i18n="whoTitle">
+      Who Am I?
+     </h3>
+     <p data-i18n="whoDesc">
+      Hello! I'm a student who enjoys exploring technology, creativity, and new experiences.
+     </p>
     </div>
-
-    <div class="skill reveal">
-        <div class="skill-info">
-            <span>CSS</span>
-            <span>65%</span>
-        </div>
-        <div class="progress">
-            <div class="progress-bar" data-width="65%"></div>
-        </div>
+    <div class="card reveal">
+     <div class="icon">
+      💻
+     </div>
+     <h3 data-i18n="interestsTitle">
+      My Interests
+     </h3>
+     <p data-i18n="interestsDesc">
+      I enjoy coding, web development, gaming, and discovering interesting technologies.
+     </p>
     </div>
-
-    <div class="skill reveal">
-        <div class="skill-info">
-            <span>JavaScript</span>
-            <span>45%</span>
-        </div>
-        <div class="progress">
-            <div class="progress-bar" data-width="45%"></div>
-        </div>
+    <div class="card reveal">
+     <div class="icon">
+      🚀
+     </div>
+     <h3 data-i18n="goalsTitle">
+      My Goals
+     </h3>
+     <p data-i18n="goalsDesc">
+      My goal is to keep improving, learn valuable skills, and create something meaningful.
+     </p>
     </div>
-
-    <div class="skill reveal">
-        <div class="skill-info">
-            <span>Python</span>
-            <span>90%</span>
-        </div>
-        <div class="progress">
-            <div class="progress-bar" data-width="90%"></div>
-        </div>
+   </div>
+  </section>
+  <section id="skills">
+   <h2 class="section-title reveal" data-i18n-html="skillsTitle">
+    My
+    <span>
+     Skills
+    </span>
+   </h2>
+   <p class="section-desc reveal" data-i18n="skillsDesc">
+    Things I'm currently learning.
+   </p>
+   <div class="skill reveal">
+    <div class="skill-info">
+     <span>
+      HTML
+     </span>
+     <span>
+      80%
+     </span>
     </div>
-
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-
-    <h2 class="section-title reveal">
-        Contact <span>Me</span>
+    <div class="progress">
+     <div class="progress-bar" data-width="80%">
+     </div>
+    </div>
+   </div>
+   <div class="skill reveal">
+    <div class="skill-info">
+     <span>
+      CSS
+     </span>
+     <span>
+      65%
+     </span>
+    </div>
+    <div class="progress">
+     <div class="progress-bar" data-width="65%">
+     </div>
+    </div>
+   </div>
+   <div class="skill reveal">
+    <div class="skill-info">
+     <span>
+      JavaScript
+     </span>
+     <span>
+      45%
+     </span>
+    </div>
+    <div class="progress">
+     <div class="progress-bar" data-width="45%">
+     </div>
+    </div>
+   </div>
+   <div class="skill reveal">
+    <div class="skill-info">
+     <span>
+      Python
+     </span>
+     <span>
+      90%
+     </span>
+    </div>
+    <div class="progress">
+     <div class="progress-bar" data-width="90%">
+     </div>
+    </div>
+   </div>
+  </section>
+  <section id="contact">
+   <h2 class="section-title reveal" data-i18n-html="contactTitle">
+    Contact
+    <span>
+     Me
+    </span>
+   </h2>
+   <p class="section-desc reveal" data-i18n="contactDesc">
+    Let's connect!
+   </p>
+   <div class="contact-box reveal">
+    <h2 data-i18n="friends">
+     Let's Be Friends!
     </h2>
-
-    <p class="section-desc reveal">
-        Let's connect!
+    <br/>
+    <p data-i18n="contactText">
+     Feel free to connect with me through my social media.
     </p>
-
-    <div class="contact-box reveal">
-
-        <h2>Let's Be Friends! </h2>
-
-        <br>
-
-        <p>
-            Feel free to connect with me
-            through my social media.
-        </p>
-
-        <a
-          href="https://github.com/"
-          class="btn"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-            Visit My GitHub →
-        </a>
-
-    </div>
-</section>
-
-<footer>
-    © 2026 MyProfile. made by heatcliff el unknown
-</footer>
-
-<script>
-const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add("active");
-
-            const bar = entry.target.querySelector(".progress-bar");
-
-            if (bar) {
-                bar.style.width = bar.dataset.width;
+    <a class="btn" data-i18n="githubBtn" href="https://github.com/Tyavailable" rel="noopener noreferrer" target="_blank">
+     Visit My GitHub →
+    </a>
+   </div>
+   <div class="visitors">
+    👁️
+    <span data-i18n="visitsLabel">
+     Total visits:
+    </span>
+    <strong id="visits">
+     ...
+    </strong>
+   </div>
+  </section>
+  <footer>
+   © 2026 MyProfile. made by heatcliff el unknown
+  </footer>
+  <script>
+   // Reveal and skill animations
+if('IntersectionObserver' in window) {
+    const observer=new IntersectionObserver(entries=> {
+        entries.forEach(entry=> {
+            if(entry.isIntersecting) {
+                entry.target.classList.add('active');const bar=entry.target.querySelector('.progress-bar');if(bar)bar.style.width=bar.dataset.width;observer.unobserve(entry.target)
             }
-
-            observer.unobserve(entry.target);
-        }
-    });
-}, {
-    threshold: 0.1
-});
-
-document.querySelectorAll(".reveal").forEach(el => {
-    observer.observe(el);
-});
-</script>
-
-</body>
-    </html>
+        })
+    },
+    {
+        threshold:.1
+    })
+    ;document.querySelectorAll('.reveal').forEach(el=>observer.observe(el))
+}
+else {
+    document.querySelectorAll('.reveal').forEach(el=> {
+        el.classList.add('active');const bar=el.querySelector('.progress-bar');if(bar)bar.style.width=bar.dataset.width
+    })
+}
+// Theme
+const themeBtn=document.getElementById('themeBtn');try {
+    if(localStorage.getItem('profile-theme')==='light')document.body.classList.add('light')
+}
+catch(e) {
+}
+function syncTheme() {
+    themeBtn.textContent=document.body.classList.contains('light')?'🌙':'☀️'
+}
+syncTheme();themeBtn.addEventListener('click',()=> {
+    document.body.classList.toggle('light');syncTheme();try {
+        localStorage.setItem('profile-theme',document.body.classList.contains('light')?'light':'dark')
+    }
+    catch(e) {
+    }
+})
+; // Language const dict= {
+    en: {
+        navHome:'Home',navAbout:'About',navSkills:'Skills',navContact:'Contact',badge:'✨ Thanks for coming.',greeting:"Hi, I'm",heroDesc:'A student, technology enthusiast, and someone who loves learning new things. Welcome to my personal space on the internet.',explore:'Explore My Profile →',aboutTitle:'About <span>Me</span>',aboutDesc:'Get to know me better.',whoTitle:'Who Am I?',whoDesc:"Hello! I'm a student who enjoys exploring technology, creativity, and new experiences.",interestsTitle:'My Interests',interestsDesc:'I enjoy coding, web development, gaming, and discovering interesting technologies.',goalsTitle:'My Goals',goalsDesc:'My goal is to keep improving, learn valuable skills, and create something meaningful.',skillsTitle:'My <span>Skills</span>',skillsDesc:"Things I'm currently learning.",contactTitle:'Contact <span>Me</span>',contactDesc:"Let's connect!",friends:"Let's Be Friends!",contactText:'Feel free to connect with me through my social media.',githubBtn:'Visit My GitHub →',visitsLabel:'Total visits:'
+    },
+    id: {
+        navHome:'Beranda',navAbout:'Tentang',navSkills:'Keahlian',navContact:'Kontak',badge:'✨ Terima kasih sudah berkunjung.',greeting:'Hai, aku',heroDesc:'Seorang pelajar, penggemar teknologi, dan seseorang yang senang mempelajari hal baru. Selamat datang di ruang pribadiku di internet.',explore:'Jelajahi Profilku →',aboutTitle:'Tentang <span>Aku</span>',aboutDesc:'Kenali aku lebih dekat.',whoTitle:'Siapa Aku?',whoDesc:'Halo! Aku seorang pelajar yang suka menjelajahi teknologi, kreativitas, dan pengalaman baru.',interestsTitle:'Minatku',interestsDesc:'Aku suka coding, pengembangan web, bermain game, dan menemukan teknologi menarik.',goalsTitle:'Tujuanku',goalsDesc:'Aku ingin terus berkembang, mempelajari keterampilan berguna, dan menciptakan sesuatu yang bermakna.',skillsTitle:'Keahlian <span>Aku</span>',skillsDesc:'Hal-hal yang sedang kupelajari.',contactTitle:'Hubungi <span>Aku</span>',contactDesc:'Ayo terhubung!',friends:'Ayo Berteman!',contactText:'Kamu bisa terhubung denganku melalui media sosial.',githubBtn:'Kunjungi GitHub-ku →',visitsLabel:'Total kunjungan:'
+    }
+};
+const language=document.getElementById('language');function setLanguage(lang) {
+    const t=dict[lang]||dict.en;document.documentElement.lang=lang;document.querySelectorAll('[data-i18n]').forEach(el=>el.textContent=t[el.dataset.i18n]);document.querySelectorAll('[data-i18n-html]').forEach(el=>el.innerHTML=t[el.dataset.i18nHtml]);language.value=lang;try {
+        localStorage.setItem('profile-lang',lang)
+    }
+    catch(e) {
+    }
+}
+let savedLang='en';try {
+    savedLang=localStorage.getItem('profile-lang')||'en'
+}
+catch(e) {
+}
+setLanguage(savedLang==='id'?'id':'en');language.addEventListener('change',e=>setLanguage(e.target.value)); // Mouse cursor (desktop only) if(window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    const cursor=document.getElementById('cursor');window.addEventListener('pointermove',e=> {
+        cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px'
+    },
+    {
+        passive:true
+    })
+}
+// Animated particles
+const canvas=document.getElementById('particles'),ctx=canvas.getContext('2d');const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;let dots=[],width=0,height=0;function resize() {
+    width=canvas.width=window.innerWidth;height=canvas.height=window.innerHeight;const count=Math.min(65,Math.floor(width*height/14000));dots=Array.from( {
+        length:count
+    },
+    ()=>( {
+        x:Math.random()*width,y:Math.random()*height,r:Math.random()*1.8+.5,vx:(Math.random()-.5)*.4,v
