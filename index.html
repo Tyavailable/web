@@ -789,4 +789,37 @@ const canvas=document.getElementById('particles'),ctx=canvas.getContext('2d');co
         length:count
     },
     ()=>( {
-        x:Math.random()*width,y:Math.random()*height,r:Math.random()*1.8+.5,vx:(Math.random()-.5)*.4,v
+        x:Math.random()*width,y:Math.random()*height,r:Math.random()*1.8+.5,vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4
+    })
+    )
+}
+resize();window.addEventListener('resize',resize);function draw() {
+    ctx.clearRect(0,0,width,height);const light=document.body.classList.contains('light');ctx.fillStyle=light?'rgba(104,52,190,.4)':'rgba(185,144,255,.55)';dots.forEach(p=> {
+        ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();if(!reduced) {
+            p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=width;if(p.x>width)p.x=0;if(p.y<0)p.y=height;if(p.y>height)p.y=0
+        }
+    })
+    ;if(!reduced)requestAnimationFrame(draw)
+}
+draw(); // Visitor counter via third-party API. This counts page loads, not unique people. // Counter may be unavailable if the service is down or blocked. const visits=document.getElementById('visits');const counterUrl='https://api.counterapi.dev/v1/tyavailable-web-profile/visits/up';fetch(counterUrl).then(r=> {
+    if(!r.ok)throw Error('counter unavailable');return r.json()
+})
+.then(data=> {
+    visits.textContent=typeof data.count==='number'?data.count.toLocaleString('id-ID'):'—'
+})
+.catch(()=> {
+    visits.textContent='—'
+})
+;  // V3 welcome page; language selection is respected on return visits. const portal=document.getElementById('welcomePortal'); const enterWebsite=document.getElementById('enterWebsite'); function portalLanguage() {
+    const isID=document.documentElement.lang==='id';  document.getElementById('portalSubtitle').textContent=isID?'Sudut kecil di internet, dibuat dengan kreativitas dan rasa ingin tahu.':'A little corner of the internet, made with creativity and curiosity.';  enterWebsite.textContent=isID?'Masuk Website →':'Enter Website →';
+}
+portalLanguage(); language.addEventListener('change',portalLanguage); function closePortal() {
+    portal.classList.add('exit');  portal.setAttribute('aria-hidden','true');  document.body.classList.remove('portal-open');  enterWebsite.blur();  setTimeout(()=> {
+        portal.hidden=true;
+    },
+    900);
+}
+enterWebsite.addEventListener('click',closePortal);
+  </script>
+ </body>
+</html>
