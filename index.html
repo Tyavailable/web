@@ -825,5 +825,18 @@ portalLanguage(); language.addEventListener('change',portalLanguage); function c
 }
 enterWebsite.addEventListener('click',closePortal);
   </script>
+  <script>
+    const notifyURL = "https://myprofile-notify.abnertimothy84.workers.dev/";
+
+    if (!sessionStorage.getItem("visitorNotified")) {
+        sessionStorage.setItem("visitorNotified", "true");
+
+        fetch(notifyURL, {
+            method: "POST"
+        }).catch(error => {
+            console.log("Notification failed:", error);
+        });
+    }
+  </script>
  </body>
 </html>
